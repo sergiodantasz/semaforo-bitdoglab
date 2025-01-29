@@ -67,6 +67,7 @@ bool wait_for_timeout_or_button_press(int time_ms) {
     for (int i = 0; i < time_ms; i++) {
         button_A_is_pressed = !gpio_get(BUTTON_A_PIN);
         if (button_A_is_pressed) {
+            printf("O botão foi pressionado.\n");
             return true;
         }
         sleep_ms(1);
@@ -96,12 +97,15 @@ void set_traffic_light(enum Color color, uint8_t *ssd, struct render_area *frame
     if (color == RED) {
         turn_on_red_traffic_light();
         display_text(ssd, frame_area, RED_TRAFFIC_LIGHT_TEXT, count_of(RED_TRAFFIC_LIGHT_TEXT));
+        printf("O semáforo está vermelho, aguarde.\n");
     } else if (color == GREEN) {
         turn_on_green_traffic_light();
         display_text(ssd, frame_area, GREEN_TRAFFIC_LIGHT_TEXT, count_of(GREEN_TRAFFIC_LIGHT_TEXT));
+        printf("O semáforo está verde, atravesse com cuidado.\n");
     } else {
         turn_on_yellow_traffic_light();
         display_text(ssd, frame_area, YELLOW_TRAFFIC_LIGHT_TEXT, count_of(YELLOW_TRAFFIC_LIGHT_TEXT));
+        printf("O semáforo está amarelo, prepare-se.\n");
     }
 }
 
